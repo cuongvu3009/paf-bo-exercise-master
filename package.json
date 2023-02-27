@@ -16,7 +16,7 @@
   "license": "ISC",
   "scripts": {
     "start": "concurrently 'npm:start:*'",
-    "start:backend": "nodemon ./src/backend.ts",
+    "start:backend": "nodemon ./src/backend.ts ",
     "start:frontend": "parcel index.html"
   },
   "dependencies": {
