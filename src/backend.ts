@@ -1,17 +1,49 @@
-import express from "express";
-import appData from "./api/app.json" assert { type: "json" };
-import categories from "./api/categories.json" assert { type: "json" };
-import gameLists from "./api/game-lists.json" assert { type: "json" };
-import games from "./api/games.json" assert { type: "json" };
+import express, { NextFunction, Request, Response } from 'express';
+import appData from './api/app.json' assert { type: 'json' };
+import categories from './api/categories.json' assert { type: 'json' };
+import gameLists from './api/game-lists.json' assert { type: 'json' };
+import games from './api/games.json' assert { type: 'json' };
+import cors from 'cors';
+import helmet from 'helmet';
+import ApiError from 'server/helpers/apiError';
 
 const PORT = 8082;
 
 const app = express();
 
-app.post("/api/games");
+// Global middleware
+app.use(
+  cors({
+    //	Origin (*) for demo only
+    origin: '*',
+    methods: ['GET'],
+    credentials: true,
+  })
+);
+app.use(express.json());
+app.use(helmet());
 
-app.post("/api/protected");
+// Set up routers
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World');
+});
 
+app.post('/api/games');
+app.post('/api/protected');
+
+// Custom API error handler
+
+app.use((err: ApiError, req: Request, res: Response, next: NextFunction) => {
+  const status = err.statusCode || 500;
+  const message = err.message || 'Something went wrong';
+  return res.status(status).json({
+    success: false,
+    status,
+    message,
+  });
+});
+
+//	Server
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
 });
