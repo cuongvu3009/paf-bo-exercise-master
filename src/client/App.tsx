@@ -1,15 +1,19 @@
 import React from 'react';
+import Category from './components/Category';
+import GameList from './components/GameList';
 
 export default function App() {
   return (
     <>
-      <header>
-        <h1>Game title</h1>
-        <hr />
-      </header>
-      <main>
-        <p>Game description</p>
-      </main>
+      <div>
+        <Category />
+      </div>
+      <div>
+        <GameList />
+        <GameList />
+        <GameList />
+        <GameList />
+      </div>
     </>
   );
 }

@@ -1,6 +1,9 @@
 export interface SingleGameModel {
   id: number;
-  image: string;
-  provider: string;
   title: string;
+  releaseDate?: Date;
+  image: string;
+  launchUrl?: string;
+  launch_base_url?: string;
+  in_maintenance?: boolean;
 }
