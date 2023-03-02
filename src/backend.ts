@@ -8,7 +8,16 @@ import games from './api/games.json' assert { type: 'json' };
 import cors from 'cors';
 import helmet from 'helmet';
 
-import ApiError from './helpers/apiError';
+//	ApiError class
+class ApiError extends Error {
+  constructor(
+    readonly statusCode: number,
+    readonly message: string,
+    readonly source?: Error
+  ) {
+    super();
+  }
+}
 
 //	Type declaration
 interface IGame {
@@ -70,10 +79,6 @@ let exclusiveGamesCategory = categories[3];
 let recentlyPlayedCategory = categories[4];
 
 // Set up routers
-app.get('/api/app', (req: Request, res: Response, next: NextFunction) => {
-  res.status(200).json(appData);
-});
-
 app.get('/api/games', (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json([
     {
@@ -93,37 +98,6 @@ app.get('/api/games', (req: Request, res: Response, next: NextFunction) => {
     },
   ]);
 });
-
-app.use(
-  '/api/games/exclusive',
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-      ...exclusiveGamesCategory,
-      games: exclusiveGames,
-      hits: exclusiveGames.length,
-    });
-  }
-);
-app.use(
-  '/api/games/newgames',
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-      ...newGamesCategory,
-      games: newGames,
-      hits: newGames.length,
-    });
-  }
-);
-app.use(
-  '/api/games/populargames',
-  (req: Request, res: Response, next: NextFunction) => {
-    res.status(200).json({
-      ...popularCategory,
-      games: popularGames,
-      hits: popularGames.length,
-    });
-  }
-);
 app.use(
   '/api/games/recentlyplayed',
   (req: Request, res: Response, next: NextFunction) => {

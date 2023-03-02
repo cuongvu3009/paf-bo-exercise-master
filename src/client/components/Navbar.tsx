@@ -36,7 +36,7 @@ export const Navbar: FC = () => {
             )}
           </div>
           <button onClick={() => logout()} className='login-btn'>
-            Log Out
+            Logout
           </button>
         </>
       ) : (

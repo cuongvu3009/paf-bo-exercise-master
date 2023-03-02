@@ -6,6 +6,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+//	auth0 keys for demo only
 root.render(
   <Auth0Provider
     domain='dev-qnvfvb4p.us.auth0.com'
