@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import data from '../../api/categories.json';
+import React, { useEffect, useState } from 'react';
 
 const Category = () => {
-  const [categories, setCategories] = useState(Object.entries(data));
-
   return (
     <div className='category-dropdown'>
       <select>
-        {categories.map((cat) => {
+        {/* {categories.map((cat) => {
           return (
             <option
               value={cat[1].title}
@@ -17,7 +14,7 @@ const Category = () => {
               {cat[1].title}
             </option>
           );
-        })}
+        })} */}
       </select>
     </div>
   );
