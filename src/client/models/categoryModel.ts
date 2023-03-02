@@ -1,4 +1,5 @@
 export interface ICategory {
+  image: string | undefined;
   id: string;
   title: string;
   last_updated: string;

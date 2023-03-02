@@ -91,11 +91,6 @@ app.get('/api/games', (req: Request, res: Response, next: NextFunction) => {
       games: popularGames,
       hits: popularGames.length,
     },
-    {
-      ...recentlyPlayedCategory,
-      games: recentlyPlayedGames,
-      hits: recentlyPlayedGames.length,
-    },
   ]);
 });
 
