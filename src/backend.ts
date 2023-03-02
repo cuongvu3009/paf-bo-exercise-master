@@ -74,15 +74,38 @@ app.get('/api/app', (req: Request, res: Response, next: NextFunction) => {
   res.status(200).json(appData);
 });
 
+app.get('/api/games', (req: Request, res: Response, next: NextFunction) => {
+  res.status(200).json([
+    {
+      ...exclusiveGamesCategory,
+      games: exclusiveGames,
+      hits: exclusiveGames.length,
+    },
+    {
+      ...newGamesCategory,
+      games: newGames,
+      hits: newGames.length,
+    },
+    {
+      ...popularCategory,
+      games: popularGames,
+      hits: popularGames.length,
+    },
+    {
+      ...recentlyPlayedCategory,
+      games: recentlyPlayedGames,
+      hits: recentlyPlayedGames.length,
+    },
+  ]);
+});
+
 app.use(
   '/api/games/exclusive',
   (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
-      exclusiveGamesCategory: {
-        ...exclusiveGamesCategory,
-        games: exclusiveGames,
-        hits: exclusiveGames.length,
-      },
+      ...exclusiveGamesCategory,
+      games: exclusiveGames,
+      hits: exclusiveGames.length,
     });
   }
 );
@@ -90,11 +113,9 @@ app.use(
   '/api/games/newgames',
   (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
-      newGamesCategory: {
-        ...newGamesCategory,
-        games: newGames,
-        hits: newGames.length,
-      },
+      ...newGamesCategory,
+      games: newGames,
+      hits: newGames.length,
     });
   }
 );
@@ -102,11 +123,9 @@ app.use(
   '/api/games/populargames',
   (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
-      popularCategory: {
-        ...popularCategory,
-        games: popularGames,
-        hits: popularGames.length,
-      },
+      ...popularCategory,
+      games: popularGames,
+      hits: popularGames.length,
     });
   }
 );
@@ -114,11 +133,9 @@ app.use(
   '/api/games/recentlyplayed',
   (req: Request, res: Response, next: NextFunction) => {
     res.status(200).json({
-      recentlyPlayedCategory: {
-        ...recentlyPlayedCategory,
-        games: recentlyPlayedGames,
-        hits: recentlyPlayedGames.length,
-      },
+      ...recentlyPlayedCategory,
+      games: recentlyPlayedGames,
+      hits: recentlyPlayedGames.length,
     });
   }
 );

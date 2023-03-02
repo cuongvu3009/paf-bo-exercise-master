@@ -23,7 +23,7 @@ hr {
 }
 
 .game-list:not(:first-of-type) {
-  margin-top: 48px;
+  margin: 48px 0;
 }
 
 .games {
@@ -31,6 +31,14 @@ hr {
   flex-wrap: wrap;
   gap: 40px 24px;
   justify-content: space-evenly;
+
+  border: 8px solid;
+  border-image: linear-gradient(45deg, turquoise, greenyellow) 1;
+}
+
+.game {
+  margin: 10px;
+  text-align: center;
 }
 
 .img-container {
@@ -47,16 +55,6 @@ hr {
 .img-container > img {
   height: var(--proportions);
   width: var(--proportions);
-}
-
-.category-dropdown {
-  margin: 20px auto;
-  color: red;
-}
-
-.category-item {
-  padding: 100px;
-  color: green;
 }
 
 @media (max-width: 350px) {
