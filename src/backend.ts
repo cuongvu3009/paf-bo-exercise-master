@@ -10,8 +10,26 @@ import helmet from 'helmet';
 
 import ApiError from './helpers/apiError';
 
-const PORT = 8082;
+//	Type declaration
+interface IGame {
+  title: string;
+  provider: string;
+  release_date: string;
+  image: string;
+  launch_url: string;
+  launch_base_url: string;
+  in_maintenance: boolean;
+  id: number;
+}
 
+declare global {
+  type Dictionary<T> = { [key: string]: T };
+}
+
+const mapGames: Dictionary<any> = games;
+
+//	Server config
+const PORT = 8082;
 const app = express();
 
 // Global middleware
@@ -26,25 +44,25 @@ app.use(
 app.use(express.json());
 app.use(helmet());
 
-let popularGames = transform(gameLists['popular']);
-let recentlyPlayedGames = transform(gameLists['recently-played']);
-let newGames = transform(gameLists['new-games']);
-let exclusiveGames = transform(gameLists['paf-exclusive']);
-
-function transform(arr: Array<any>) {
+//	Transform raw JSON to a well restructured JSON
+function transform(arr: Array<string>): Array<IGame> {
   let newArr = [];
   for (let i = 0; i <= arr.length; i++) {
     for (let j = 0; j <= 7; j++) {
-      if (parseInt(arr[i]) === parseInt(Object.keys(games)[j])) {
+      if (parseInt(arr[i]) === parseInt(Object.keys(mapGames)[j])) {
         newArr.push({
-          ...games[j + 1],
-          id: parseInt(Object.keys(games)[j]),
+          ...mapGames[j + 1],
+          id: parseInt(Object.keys(mapGames)[j]),
         });
       }
     }
   }
   return newArr;
 }
+let popularGames = transform(gameLists['popular']);
+let recentlyPlayedGames = transform(gameLists['recently-played']);
+let newGames = transform(gameLists['new-games']);
+let exclusiveGames = transform(gameLists['paf-exclusive']);
 
 let popularCategory = categories[1];
 let newGamesCategory = categories[2];
@@ -106,7 +124,6 @@ app.use(
 );
 
 // Custom API error handler
-
 app.use((err: ApiError, req: Request, res: Response, next: NextFunction) => {
   const status = err.statusCode || 500;
   const message = err.message || 'Something went wrong';
@@ -117,7 +134,7 @@ app.use((err: ApiError, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-//	Server
+//	Server start function
 app.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
