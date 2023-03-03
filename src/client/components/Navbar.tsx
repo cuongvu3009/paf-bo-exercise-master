@@ -35,13 +35,13 @@ export const Navbar: FC = () => {
               </div>
             )}
           </div>
-          <button onClick={() => logout()} className='login-btn'>
+          <button onClick={() => logout()} className='btn'>
             Logout
           </button>
         </>
       ) : (
         <>
-          <button className='login-btn' onClick={() => loginWithPopup()}>
+          <button className='btn' onClick={() => loginWithPopup()}>
             Login
           </button>
         </>
