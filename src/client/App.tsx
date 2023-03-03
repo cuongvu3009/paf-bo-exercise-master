@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ICategory } from './models/categoryModel';
+import { ICategory, IGame } from './models/categoryModel';
 
 import { Navbar } from './components/Navbar';
 
@@ -23,15 +23,17 @@ export default function App() {
     fetchData('http://localhost:8082/api/games');
   }, []);
 
+  //	popup function
   const handleClick = (
-    title: string,
-    provider: string,
-    release_date: string
+    title: string | undefined,
+    provider: string | undefined,
+    release_date: any
   ) => {
     setIsOpen(true);
     setCurrentGame({ title, provider, release_date });
   };
 
+  //	Transform jsondate to normal day, used for render single game's date
   function parseJsonDate(jsonDate: string) {
     const date = new Date(jsonDate);
     return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
@@ -39,7 +41,10 @@ export default function App() {
 
   return (
     <>
+      {/* Navbar component */}
       <Navbar />
+
+      {/* popup to show single game info */}
       {currentGame && isOpen && (
         <div className='popup-container'>
           <div className='popup-body'>
@@ -53,6 +58,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Game list  */}
       {data?.map((category) => (
         <div className='game-list' key={category.id}>
           <h1>Game category: {category.id}</h1>

@@ -8,11 +8,11 @@ export interface ICategory {
 
 export interface IGame {
   id: number;
-  title: string;
-  provider: string;
-  release_date: string;
-  image: string;
-  launch_url: string;
-  launch_base_url: string;
-  in_maintenance: boolean;
+  title?: string;
+  provider?: string;
+  release_date?: string | Date;
+  image?: string;
+  launch_url?: string;
+  launch_base_url?: string;
+  in_maintenance?: boolean;
 }
