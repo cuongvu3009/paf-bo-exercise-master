@@ -8,7 +8,7 @@ export const Navbar: FC = () => {
 
   //	Get rececently played games if user login
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const resData = await fetch(
         'http://localhost:8082/api/games/recentlyplayed'
       );

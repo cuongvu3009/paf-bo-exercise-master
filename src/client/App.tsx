@@ -9,7 +9,7 @@ export default function App() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // Get all games excepts recently played games
-  async function fetchData(url: string) {
+  async function fetchData(url: string): Promise<void> {
     try {
       const resData = await fetch(url);
       const response: ICategory[] = await resData.json();
@@ -28,13 +28,13 @@ export default function App() {
     title: string | undefined,
     provider: string | undefined,
     release_date: any
-  ) => {
+  ): void => {
     setIsOpen(true);
     setCurrentGame({ title, provider, release_date });
   };
 
   //	Transform jsondate to normal day, used for render single game's date
-  function parseJsonDate(jsonDate: string) {
+  function parseJsonDate(jsonDate: string): string {
     const date = new Date(jsonDate);
     return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
   }
