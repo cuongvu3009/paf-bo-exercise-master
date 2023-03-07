@@ -5,7 +5,7 @@ import { Navbar } from './components/Navbar';
 
 export default function App() {
   const [data, setData] = useState<ICategory[] | undefined>();
-  const [currentGame, setCurrentGame] = useState<any>();
+  const [currentGame, setCurrentGame] = useState<IGame>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   // Get all games excepts recently played games
@@ -50,7 +50,9 @@ export default function App() {
           <div className='popup-body'>
             <h3>Title: {currentGame.title}</h3>
             <p>Provider: {currentGame.provider}</p>
-            <p>Release Date: {parseJsonDate(currentGame.release_date)}</p>
+            <p>
+              Release Date: {parseJsonDate(currentGame.release_date as string)}
+            </p>
             <button className='btn' onClick={() => setIsOpen(false)}>
               Close
             </button>
