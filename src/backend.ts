@@ -19,6 +19,26 @@ class ApiError extends Error {
   }
 }
 
+//	Cache setup
+const setCache = function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void {
+  //	Keep cache for 5 minutes (in seconds)
+  const period = 60 * 5;
+
+  //	cache for GET requests only
+  if (req.method === 'GET') {
+    res.set('Cache-control', `public, max-age=${period}`);
+  } else {
+    //	for the other requests set strict no caching parameters
+    res.set('Cache-control', `no-store`);
+  }
+
+  next();
+};
+
 //	Type declaration
 interface IGame {
   title: string;
@@ -52,6 +72,7 @@ app.use(
 );
 app.use(express.json());
 app.use(helmet());
+app.use(setCache);
 
 //	Transform raw JSON to a well restructured JSON
 function transform(arr: Array<string>): Array<IGame> {
