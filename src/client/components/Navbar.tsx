@@ -10,10 +10,20 @@ export const Navbar: FC = () => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const resData = await fetch(
-        'http://localhost:8082/api/games/recentlyplayed'
+        'http://localhost:8082/api/games/recentlyplayed',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        }
       );
-      const response: ICategory = await resData.json();
-      setRecentlyPlayed(response);
+      if (resData) {
+        const response: ICategory = await resData.json();
+        setRecentlyPlayed(response);
+      } else {
+        throw new Error('Something went wrong');
+      }
     };
     fetchData();
   }, []);

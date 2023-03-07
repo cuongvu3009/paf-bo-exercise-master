@@ -11,9 +11,18 @@ export default function App() {
   // Get all games excepts recently played games
   async function fetchData(url: string): Promise<void> {
     try {
-      const resData = await fetch(url);
-      const response: ICategory[] = await resData.json();
-      setData(response);
+      const resData = await fetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+      if (resData) {
+        const response: ICategory[] = await resData.json();
+        setData(response);
+      } else {
+        throw new Error('Something went wrong');
+      }
     } catch (error) {
       console.log(error);
     }
